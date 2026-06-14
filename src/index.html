@@ -4,35 +4,11 @@
 
 <div id="items"></div>
 
-<script>
+<script type="module">
+    import init from './js/main.js';
     const button = document.querySelector('button');
     const textarea = document.querySelector('textarea');
     const items = document.getElementById('items');
-
-    function addItem() {
-        const text = textarea.value.trim();
-        if (!text) { return; }
-
-        const item = document.createElement('div');
-        item.textContent = text;
-        item.classList.add('item');
-
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('delete');
-        deleteButton.textContent = '🗑';
-        deleteButton.addEventListener('click', () => { item.remove(); });
-        item.appendChild(deleteButton);
-
-        items.appendChild(item);
-
-        textarea.value = '';
-    }
-
-    button.addEventListener('click', addItem);
-    textarea.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && e.ctrlKey) {
-            addItem();
-        }
-    });
+    init(document, button, textarea, items);
 </script>
 
