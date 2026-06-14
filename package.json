@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "What is Jernel? Well, I'm still figuring that out as I go. It will be some sort of journaling, planning, organizing app. Because the internet doesn't have very many of those yet 🙃!",
   "scripts": {
-    "start": "npx http-server src"
+    "start": "npx http-server src",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,8 @@
   },
   "homepage": "https://github.com/micahcondon/jernel#readme",
   "engines": {
-    "node": ">=24.0.0",
-    "npm": ">=11.0.0"
+    "node": ">=26.3.0",
+    "npm": ">=11.16.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
