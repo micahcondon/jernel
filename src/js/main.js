@@ -4,8 +4,12 @@ function addItem(doc, textarea, items) {
     if (!text) { return; }
 
     const item = doc.createElement('div');
-    item.textContent = text;
     item.classList.add('item');
+
+    const span = doc.createElement('span');
+    span.classList.add('text');
+    span.textContent = text;
+    item.appendChild(span);
 
     const deleteButton = doc.createElement('button');
     deleteButton.classList.add('delete');
