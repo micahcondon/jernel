@@ -1,0 +1,22 @@
+{
+  "name": "jernel",
+  "version": "0.0.1",
+  "description": "What is Jernel? Well, I'm still figuring that out as I go. It will be some sort of journaling, planning, organizing app. Because the internet doesn't have very many of those yet 🙃!",
+  "scripts": {
+    "start": "npx http-server src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micahcondon/jernel.git"
+  },
+  "author": "Micah R. Condon <micah.condon@gmail.com> (https://just-a-function.dev)",
+  "license": "See LICENSE.md",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/micahcondon/jernel/issues"
+  },
+  "homepage": "https://github.com/micahcondon/jernel#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
