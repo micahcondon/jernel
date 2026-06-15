@@ -6,16 +6,54 @@ function addItem(doc, textarea, items) {
     const item = doc.createElement('div');
     item.classList.add('item');
 
-    const span = doc.createElement('span');
-    span.classList.add('text');
-    span.textContent = text;
-    item.appendChild(span);
+    const viewer = doc.createElement('div');
+    viewer.classList.add('text');
+    viewer.textContent = text;
+    viewer.style = 'white-space: pre-wrap;';
+    item.appendChild(viewer);
+
+    const editor = doc.createElement('textarea');
+    editor.classList.add('editor');
+    editor.rows = 5;
+    editor.cols = 20;
+    editor.value = text;
+    editor.style.display = 'none';
+    item.appendChild(editor);
+
+    const buttons = doc.createElement('div');
+    item.appendChild(buttons);
+
+    const saveButton = doc.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.classList.add('save');
+    saveButton.style.display = 'none';
+    saveButton.addEventListener('click', () => {
+        saveButton.style.display = 'none';
+        editor.style.display = 'none';
+        viewer.textContent = editor.value;
+        viewer.style.display = 'block';
+        editButton.style.display = 'inline-block';
+        deleteButton.style.display = 'inline-block';
+    });
+    buttons.appendChild(saveButton);
 
     const deleteButton = doc.createElement('button');
     deleteButton.classList.add('delete');
     deleteButton.textContent = '🗑';
     deleteButton.addEventListener('click', () => { item.remove(); });
-    item.appendChild(deleteButton);
+    buttons.appendChild(deleteButton);
+
+    const editButton = doc.createElement('button');
+    editButton.classList.add('edit');
+    editButton.textContent = '✎';
+    editButton.addEventListener('click', () => {
+        viewer.style.display = 'none';
+        editor.style.display = 'block';
+        saveButton.style.display = 'block';
+        editButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+    });
+    buttons.appendChild(editButton);
 
     items.appendChild(item);
 

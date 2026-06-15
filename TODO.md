@@ -3,7 +3,6 @@
 This is not a highly detailed master plan, just a few rough notes on the next few known steps
 
 # Basic State / Components Refactor
-- add editing
 - separate components from state/data
 
 # Component Styling

@@ -48,13 +48,14 @@ test('add and remove notes', (t) => {
             textarea.value = 'Test note';
             textarea.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter', ctrlKey: true }));
             assert.equal(items.children.length, 1);
-            assert.equal(items.children[0].querySelector('.text')?.textContent, 'Test note');
+            assert.ok(items.children[0].querySelector('.text'));
+            assert.equal(items.children[0].querySelector('.text').textContent, 'Test note');
             assert.equal('', textarea.value);
         });
 
     });
 
-    t.test('Remove note', (t) => {
+    t.test('Delete note', (t) => {
 
         t.test('Delete icon should remove note', (t) => {
             textarea.value = 'Test note';
@@ -63,6 +64,23 @@ test('add and remove notes', (t) => {
             assert.ok(items.children[0].querySelector('.delete'));
             items.children[0].querySelector('.delete').click();
             assert.equal(items.children.length, 0);
+        });
+
+    });
+
+    t.test('Edit note', (t) => {
+
+        t.test('Edit and save should update note', (t) => {
+            textarea.value = 'Test note';
+            button.click();
+            assert.equal(items.children.length, 1);
+            assert.ok(items.children[0].querySelector('.edit'));
+            assert.ok(items.children[0].querySelector('.editor'));
+            assert.ok(items.children[0].querySelector('.save'));
+            items.children[0].querySelector('.edit').click();
+            items.children[0].querySelector('.editor').value = 'Updated note';
+            items.children[0].querySelector('.save').click();
+            assert.equal(items.children[0].querySelector('.text').textContent, 'Updated note');
         });
 
     });
