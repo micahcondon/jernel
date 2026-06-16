@@ -4,8 +4,8 @@ This is not a highly detailed master plan, just a few rough notes on the next fe
 
 # Basic State / Components Refactor
 - separate components from state/data
-  - extract a master note collection class and tests
-  - add note-list, with tests
+  - add events on edit and delete, with tests
+  - extract note-list - re-render the whole list on change
 
 # Component Styling
 - decide on shallow vs shadow dom patterns

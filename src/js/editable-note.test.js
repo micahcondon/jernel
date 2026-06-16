@@ -64,13 +64,35 @@ test('editable-note', (t) => {
             editableNote.note = { text: 'Hello World' };
             document.body.appendChild(editableNote);
             editableNote.querySelector('.edit').click();
-            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { text: 'Hello World, edited' } } }))
+            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { text: 'Hello World, edited' } }, bubbles: true }))
             assert.ok(editableNote.querySelector('note-viewer'));
             assert.equal(editableNote.querySelector('note-viewer').note?.text, 'Hello World, edited');
+        });
+
+        t.test('Should allow event to bubble on change', (t) => {
+            const editableNote = document.createElement('editable-note');
+            editableNote.note = { id: 1, text: 'Hello World' };
+            document.body.appendChild(editableNote);
+            let changedNote;
+            editableNote.addEventListener('change', e => changedNote = e.detail.note);
+            editableNote.querySelector('.edit').click();
+            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { id: 1, text: 'Hello World, edited' } }, bubbles: true }))
+            assert.deepEqual(changedNote, { id: 1, text: 'Hello World, edited' });
         });
     });
 
     t.test('Delete', (t) => {
+
+        t.test('Should dispatch event', (t) => {
+            const editableNote = document.createElement('editable-note');
+            editableNote.note = { id: 1, text: 'Hello World' };
+            document.body.appendChild(editableNote);
+            assert.ok(document.querySelector('editable-note'));
+            let deletedNote;
+            editableNote.addEventListener('delete', (e) => { deletedNote = e.detail.note; });
+            editableNote.querySelector('.delete').click();
+            assert.deepEqual(deletedNote, { id: 1, text: 'Hello World' });
+        });
 
         t.test('Should remove', (t) => {
             const editableNote = document.createElement('editable-note');

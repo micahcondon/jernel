@@ -34,7 +34,7 @@ class NoteEditor extends TemplatedElement {
     _save() {
         const note = { text: this.querySelector('textarea').value };
         this._note = note;
-        this.dispatchEvent(new CustomEvent('change', { detail: { note } }));
+        this.dispatchEvent(new CustomEvent('change', { detail: { note }, bubbles: true }));
     }
 };
 

@@ -27,7 +27,7 @@ class EditableNote extends TemplatedElement {
 
     connectedCallback() {
         super.connectedCallback();
-        this.querySelector('.delete').addEventListener('click', () => this.remove());
+        this.querySelector('.delete').addEventListener('click', () => this._delete());
         this.querySelector('.edit').addEventListener('click', () => {
             this._editing = !this._editing;
             this._render();
@@ -51,6 +51,11 @@ class EditableNote extends TemplatedElement {
             this.querySelector('.note').replaceChildren(noteElement);
         }
 
+    }
+
+    _delete() {
+        this.dispatchEvent(new CustomEvent('delete', { detail: { note: this._note }, bubbles: true }));
+        this.remove();
     }
 };
 
