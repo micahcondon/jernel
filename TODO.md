@@ -4,6 +4,12 @@ This is not a highly detailed master plan, just a few rough notes on the next fe
 
 # Basic State / Components Refactor
 - separate components from state/data
+  - and tests for individual components
+  - note-display
+  - note-edit
+    - is this the same as note create?
+  - editable-note
+  - note-list
 
 # Component Styling
 - decide on shallow vs shadow dom patterns
@@ -12,7 +18,7 @@ This is not a highly detailed master plan, just a few rough notes on the next fe
 # Basic Persistence
 - add context provider
     - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
-- add persistence - markdown + yaml, simple indexeddb
+- add persistence - markdown + yaml, simple indexeddb or localhost
   - id, date_created, date_updated
   - see https://gemini.google.com/app/c5ec6791d1735cf3
 - demonstrate change propagation

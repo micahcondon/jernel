@@ -5,10 +5,10 @@
 <div id="items"></div>
 
 <script type="module">
-    import init from './js/main.js';
+    import { init } from './js/main.js';
     const button = document.querySelector('button');
     const textarea = document.querySelector('textarea');
     const items = document.getElementById('items');
-    init(document, button, textarea, items);
+    init({ document, button, textarea, items });
 </script>
 

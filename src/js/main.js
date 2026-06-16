@@ -1,18 +1,17 @@
+import NoteViewer from './note-viewer.js';
 
-function addItem(doc, textarea, items) {
+function addItem(textarea, items) {
     const text = textarea.value.trim();
     if (!text) { return; }
 
-    const item = doc.createElement('div');
+    const item = document.createElement('div');
     item.classList.add('item');
 
-    const viewer = doc.createElement('div');
-    viewer.classList.add('text');
-    viewer.textContent = text;
-    viewer.style = 'white-space: pre-wrap;';
+    const viewer = document.createElement('note-viewer');
+    viewer.note = { text };
     item.appendChild(viewer);
 
-    const editor = doc.createElement('textarea');
+    const editor = document.createElement('textarea');
     editor.classList.add('editor');
     editor.rows = 5;
     editor.cols = 20;
@@ -20,30 +19,30 @@ function addItem(doc, textarea, items) {
     editor.style.display = 'none';
     item.appendChild(editor);
 
-    const buttons = doc.createElement('div');
+    const buttons = document.createElement('div');
     item.appendChild(buttons);
 
-    const saveButton = doc.createElement('button');
+    const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
     saveButton.classList.add('save');
     saveButton.style.display = 'none';
     saveButton.addEventListener('click', () => {
         saveButton.style.display = 'none';
         editor.style.display = 'none';
-        viewer.textContent = editor.value;
+        viewer.note = { text: editor.value };
         viewer.style.display = 'block';
         editButton.style.display = 'inline-block';
         deleteButton.style.display = 'inline-block';
     });
     buttons.appendChild(saveButton);
 
-    const deleteButton = doc.createElement('button');
+    const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete');
     deleteButton.textContent = '🗑';
     deleteButton.addEventListener('click', () => { item.remove(); });
     buttons.appendChild(deleteButton);
 
-    const editButton = doc.createElement('button');
+    const editButton = document.createElement('button');
     editButton.classList.add('edit');
     editButton.textContent = '✎';
     editButton.addEventListener('click', () => {
@@ -60,8 +59,8 @@ function addItem(doc, textarea, items) {
     textarea.value = '';
 }
 
-export default function init(doc, button, textarea, items) {
-    const handleAddItem = () => addItem(doc, textarea, items);
+export function init({ button, textarea, items }) {
+    const handleAddItem = () => addItem(textarea, items);
     button.addEventListener('click', () => handleAddItem());
     textarea.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && e.ctrlKey) {

@@ -2,22 +2,31 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Window, KeyboardEvent } from 'happy-dom';
 
-import init from './main.js';
+const window = new Window({ url: 'https://localhost:8080' });
+const document = window.document;
+
+Object.assign(globalThis, {
+    document,
+    window,
+    HTMLElement: window.HTMLElement,
+    customElements: window.customElements,
+})
+
+const { init } = await import('./main.js');
 
 test('add and remove notes', (t) => {
 
-    let window, document, button, textarea, items;
+    let button, textarea, items;
 
     t.beforeEach(() => {
         if (window?.happyDOM) {
             window.happyDOM.abort(); // Clears timers, fetch requests, etc.
         }
-        window = new Window({ url: 'https://localhost:8080' });
-        document = window.document;
-        button = document.createElement('button');
-        textarea = document.createElement('textarea');
-        items = document.createElement('div');
-        init(document, button, textarea, items);
+        document.body.innerHTML = `<textarea></textarea><button>Save</button><div class='items'></div>`;
+        textarea = document.querySelector('textarea');
+        button = document.querySelector('button');
+        items = document.querySelector('.items');
+        init({ button, textarea, items });
     });
 
     t.test('Button click', (t) => {
@@ -31,7 +40,9 @@ test('add and remove notes', (t) => {
             textarea.value = 'Test note';
             button.click();
             assert.equal(items.children.length, 1);
-            assert.equal(items.children[0].querySelector('.text')?.textContent, 'Test note');
+            assert.ok(items.children[0].querySelector('note-viewer'));
+            // can't test custom element internal rendering here - why?
+            assert.equal(items.children[0].querySelector('note-viewer')?.textContent, 'Test note');
             assert.equal('', textarea.value);
         });
 
@@ -48,8 +59,7 @@ test('add and remove notes', (t) => {
             textarea.value = 'Test note';
             textarea.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter', ctrlKey: true }));
             assert.equal(items.children.length, 1);
-            assert.ok(items.children[0].querySelector('.text'));
-            assert.equal(items.children[0].querySelector('.text').textContent, 'Test note');
+            assert.equal(items.children[0].querySelector('note-viewer')?.textContent, 'Test note');
             assert.equal('', textarea.value);
         });
 
@@ -80,9 +90,8 @@ test('add and remove notes', (t) => {
             items.children[0].querySelector('.edit').click();
             items.children[0].querySelector('.editor').value = 'Updated note';
             items.children[0].querySelector('.save').click();
-            assert.equal(items.children[0].querySelector('.text').textContent, 'Updated note');
+            assert.equal(items.children[0].querySelector('note-viewer')?.textContent, 'Updated note');
         });
 
     });
-
 });
