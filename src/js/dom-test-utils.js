@@ -7,6 +7,8 @@ export default function initDom() {
         document: window.document,
         HTMLElement: window.HTMLElement,
         customElements: window.customElements,
+        CustomEvent: window.CustomEvent,
+        KeyboardEvent: window.KeyboardEvent,
     });
     return window;
 }

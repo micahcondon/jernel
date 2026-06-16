@@ -8,7 +8,7 @@ template.innerHTML = `<div
 class NoteViewer extends TemplatedElement {
 
     constructor() {
-        super();
+        super(template);
         this._note = undefined;
     }
 
@@ -19,17 +19,6 @@ class NoteViewer extends TemplatedElement {
 
     get note() {
         return this._note;
-    }
-
-    connectedCallback() {
-        this.innerHTML = '';
-        this.appendChild(template.content.cloneNode(true));
-        this._connected = true;
-        this._render();
-    }
-
-    disconnectedCallback() {
-        this._connected = false;
     }
 
     _render() {

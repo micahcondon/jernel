@@ -2,8 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import initDom from './dom-test-utils.js';
-const { window, document } = initDom();
-const { KeyboardEvent } = window;
+initDom();
 
 const { init } = await import('./main.js');
 
@@ -78,11 +77,9 @@ test('add and remove notes', (t) => {
             button.click();
             assert.equal(items.children.length, 1);
             assert.ok(items.children[0].querySelector('.edit'));
-            assert.ok(items.children[0].querySelector('.editor'));
-            assert.ok(items.children[0].querySelector('.save'));
+            assert.ok(items.children[0].querySelector('note-editor'));
             items.children[0].querySelector('.edit').click();
-            items.children[0].querySelector('.editor').value = 'Updated note';
-            items.children[0].querySelector('.save').click();
+            items.children[0].querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { text: 'Updated note' } } }));
             assert.equal(items.children[0].querySelector('note-viewer')?.textContent, 'Updated note');
         });
 

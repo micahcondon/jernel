@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import initDom from './dom-test-utils.js';
-const { window, document } = initDom();
+initDom();
 
 await import('./note-viewer.js');
 

@@ -1,4 +1,5 @@
 import NoteViewer from './note-viewer.js';
+import NoteEditor from './note-editor.js';
 
 function addItem(textarea, items) {
     const text = textarea.value.trim();
@@ -11,30 +12,20 @@ function addItem(textarea, items) {
     viewer.note = { text };
     item.appendChild(viewer);
 
-    const editor = document.createElement('textarea');
-    editor.classList.add('editor');
-    editor.rows = 5;
-    editor.cols = 20;
-    editor.value = text;
+    const editor = document.createElement('note-editor');
+    editor.note = { text };
     editor.style.display = 'none';
     item.appendChild(editor);
 
     const buttons = document.createElement('div');
     item.appendChild(buttons);
 
-    const saveButton = document.createElement('button');
-    saveButton.textContent = 'Save';
-    saveButton.classList.add('save');
-    saveButton.style.display = 'none';
-    saveButton.addEventListener('click', () => {
-        saveButton.style.display = 'none';
+    editor.addEventListener('change', (e) => {
         editor.style.display = 'none';
-        viewer.note = { text: editor.value };
+        viewer.note = e.detail.note;
         viewer.style.display = 'block';
-        editButton.style.display = 'inline-block';
-        deleteButton.style.display = 'inline-block';
+        buttons.style.display = 'block';
     });
-    buttons.appendChild(saveButton);
 
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete');
@@ -46,11 +37,9 @@ function addItem(textarea, items) {
     editButton.classList.add('edit');
     editButton.textContent = '✎';
     editButton.addEventListener('click', () => {
+        buttons.style.display = 'none';
         viewer.style.display = 'none';
         editor.style.display = 'block';
-        saveButton.style.display = 'block';
-        editButton.style.display = 'none';
-        deleteButton.style.display = 'none';
     });
     buttons.appendChild(editButton);
 
