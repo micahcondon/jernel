@@ -3,13 +3,12 @@
 This is not a highly detailed master plan, just a few rough notes on the next few known steps
 
 # Basic State / Components Refactor
+- rewrite all rendering and event handling to custom elements
+  - use note-editor for main input
+  - add editable-note and tests
 - separate components from state/data
-  - and tests for individual components
-  - note-display
-  - note-edit
-    - is this the same as note create?
-  - editable-note
-  - note-list
+  - extract a master note collection class and tests
+  - add note-list and tests
 
 # Component Styling
 - decide on shallow vs shadow dom patterns
