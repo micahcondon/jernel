@@ -1,16 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Window, KeyboardEvent } from 'happy-dom';
 
-const window = new Window({ url: 'https://localhost:8080' });
-const document = window.document;
-
-Object.assign(globalThis, {
-    document,
-    window,
-    HTMLElement: window.HTMLElement,
-    customElements: window.customElements,
-})
+import initDom from './dom-test-utils.js';
+const { window, document } = initDom();
+const { KeyboardEvent } = window;
 
 const { init } = await import('./main.js');
 
