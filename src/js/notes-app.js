@@ -19,7 +19,7 @@ class NotesApp extends TemplatedElement {
         editor.addEventListener('change', (e) => {
             const noteElement = document.createElement('editable-note');
             noteElement.note = e.detail.note;
-            editor.note = { text: '' };
+            editor.note = undefined;
             notes.appendChild(noteElement);
         });
     }
