@@ -28,11 +28,16 @@ export default class NotesCollection {
   }
 
   _buildId() {
-    const dateId = new Date().toISOString().replace(/\D/g,'');
+    const dateId = new Date()
+        .toISOString()
+        .replaceAll('-','')
+        .replaceAll(':','')
+        .replace(/\D+/g,'.') + 'z';
     let id = dateId;
     let counter = 1;
     while (this._notes.has(id)) {
       id = `${dateId}.${counter++}`;
     }
+    return id;
   }
 }

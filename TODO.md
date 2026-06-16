@@ -2,24 +2,19 @@
 
 This is not a highly detailed master plan, just a few rough notes on the next few known steps
 
-# Basic State / Components Refactor
-- separate components from state/data
-  - add events on edit and delete, with tests
-  - extract note-list - re-render the whole list on change
-
-# Component Styling
-- decide on shallow vs shadow dom patterns
-- start basic CSS structure
-
 # Context Provider
 - add context provider
-    - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
+  - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
+- demonstrate change propagation
 
 # Basic Persistence
 - add persistence - markdown + yaml, simple indexeddb or localhost
   - id, date_created, date_updated
   - see https://gemini.google.com/app/c5ec6791d1735cf3
-- demonstrate change propagation
+
+# Component Styling
+- decide on shallow vs shadow dom patterns
+- start basic CSS structure
 
 # Markdown and Editor
 - Render markdown
