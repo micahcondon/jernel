@@ -19,25 +19,25 @@ test('editable-note', (t) => {
 
         t.test('Set note before render', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { text: 'Hello World' };
+            editableNote.note = { body: 'Hello World' };
             document.body.appendChild(editableNote);
-            assert.equal(editableNote.querySelector('note-viewer')?.note?.text, 'Hello World');
+            assert.equal(editableNote.querySelector('note-viewer')?.note?.body, 'Hello World');
         });
 
         t.test('Set note after render', (t) => {
             const editableNote = document.createElement('editable-note');
             document.body.appendChild(editableNote);
-            editableNote.note = { text: 'Hello World' };
-            assert.equal(editableNote.querySelector('note-viewer')?.note?.text, 'Hello World');
+            editableNote.note = { body: 'Hello World' };
+            assert.equal(editableNote.querySelector('note-viewer')?.note?.body, 'Hello World');
         });
 
         t.test('Update note after render', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { text: 'Hello World' };
+            editableNote.note = { body: 'Hello World' };
             document.body.appendChild(editableNote);
-            assert.equal(editableNote.querySelector('note-viewer')?.note?.text, 'Hello World');
-            editableNote.note = { text: 'Hello World, edited' };
-            assert.equal(editableNote.querySelector('note-viewer')?.note?.text, 'Hello World, edited');
+            assert.equal(editableNote.querySelector('note-viewer')?.note?.body, 'Hello World');
+            editableNote.note = { body: 'Hello World, edited' };
+            assert.equal(editableNote.querySelector('note-viewer')?.note?.body, 'Hello World, edited');
         });
 
     });
@@ -46,13 +46,13 @@ test('editable-note', (t) => {
 
         t.test('Should toggle edit mode', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { text: 'Hello World' };
+            editableNote.note = { body: 'Hello World' };
             document.body.appendChild(editableNote);
             assert.ok(editableNote.querySelector('note-viewer'));
             assert.equal(editableNote.querySelector('note-editor'), null);
             editableNote.querySelector('.edit').click();
             assert.ok(editableNote.querySelector('note-editor'));
-            assert.equal(editableNote.querySelector('note-editor')?.note?.text, 'Hello World');
+            assert.equal(editableNote.querySelector('note-editor')?.note?.body, 'Hello World');
             assert.equal(editableNote.querySelector('note-viewer'), null);
             editableNote.querySelector('.edit').click();
             assert.ok(editableNote.querySelector('note-viewer'));
@@ -61,23 +61,23 @@ test('editable-note', (t) => {
 
         t.test('Should update on change', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { text: 'Hello World' };
+            editableNote.note = { body: 'Hello World' };
             document.body.appendChild(editableNote);
             editableNote.querySelector('.edit').click();
-            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { text: 'Hello World, edited' } }, bubbles: true }))
+            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { body: 'Hello World, edited' } }, bubbles: true }))
             assert.ok(editableNote.querySelector('note-viewer'));
-            assert.equal(editableNote.querySelector('note-viewer').note?.text, 'Hello World, edited');
+            assert.equal(editableNote.querySelector('note-viewer').note?.body, 'Hello World, edited');
         });
 
         t.test('Should allow event to bubble on change', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { id: 1, text: 'Hello World' };
+            editableNote.note = { id: 1, body: 'Hello World' };
             document.body.appendChild(editableNote);
             let changedNote;
             editableNote.addEventListener('change', e => changedNote = e.detail.note);
             editableNote.querySelector('.edit').click();
-            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { id: 1, text: 'Hello World, edited' } }, bubbles: true }))
-            assert.deepEqual(changedNote, { id: 1, text: 'Hello World, edited' });
+            editableNote.querySelector('note-editor').dispatchEvent(new CustomEvent('change', { detail: { note: { id: 1, body: 'Hello World, edited' } }, bubbles: true }))
+            assert.deepEqual(changedNote, { id: 1, body: 'Hello World, edited' });
         });
     });
 
@@ -85,18 +85,18 @@ test('editable-note', (t) => {
 
         t.test('Should dispatch event', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { id: 1, text: 'Hello World' };
+            editableNote.note = { id: 1, body: 'Hello World' };
             document.body.appendChild(editableNote);
             assert.ok(document.querySelector('editable-note'));
             let deletedNote;
             editableNote.addEventListener('delete', (e) => { deletedNote = e.detail.note; });
             editableNote.querySelector('.delete').click();
-            assert.deepEqual(deletedNote, { id: 1, text: 'Hello World' });
+            assert.deepEqual(deletedNote, { id: 1, body: 'Hello World' });
         });
 
         t.test('Should remove', (t) => {
             const editableNote = document.createElement('editable-note');
-            editableNote.note = { text: 'Hello World' };
+            editableNote.note = { body: 'Hello World' };
             document.body.appendChild(editableNote);
             assert.ok(document.querySelector('editable-note'));
             editableNote.querySelector('.delete').click();

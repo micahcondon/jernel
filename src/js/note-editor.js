@@ -28,11 +28,11 @@ class NoteEditor extends TemplatedElement {
 
     _render() {
         if (!this._connected) { return;}
-        this.querySelector('textarea').value = this._note?.text || '';
+        this.querySelector('textarea').value = this._note?.body || '';
     }
 
     _save() {
-        const note = { ...this._note, text: this.querySelector('textarea').value };
+        const note = { ...this._note, body: this.querySelector('textarea').value };
         this._note = note;
         this.dispatchEvent(new CustomEvent('change', { detail: { note }, bubbles: true }));
     }

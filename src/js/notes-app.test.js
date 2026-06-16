@@ -22,12 +22,12 @@ test('notes-app', (t) => {
 
         t.test('Appends a note', (t) => {
             assert.equal(notesApp.querySelector('editable-note'), null);
-            notesApp.querySelector('note-editor').dispatchEvent(new CustomEvent('change', {detail: {note: {text: 'Hello World'}}}))
+            notesApp.querySelector('note-editor').dispatchEvent(new CustomEvent('change', {detail: {note: {body: 'Hello World'}}}))
             assert.ok(notesApp.querySelector('editable-note'));
         });
 
         t.test('Clears the editor', (t) => {
-            notesApp.querySelector('note-editor').dispatchEvent(new CustomEvent('change', {detail: {note: {text: 'Hello World'}}}))
+            notesApp.querySelector('note-editor').dispatchEvent(new CustomEvent('change', {detail: {note: {body: 'Hello World'}}}))
             assert.equal(notesApp.querySelector('note-editor')?.note, undefined);
         });
 

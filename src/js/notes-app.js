@@ -20,12 +20,15 @@ class NotesApp extends TemplatedElement {
         const editor = this.querySelector('note-editor');
         const list = this.querySelector('note-list');
         editor.addEventListener('change', (e) => {
-            this._notes.add(e.detail.note.text);
+            if (!e.detail.note.body.trim()) {
+                return;
+            }
+            this._notes.add(e.detail.note.body);
             list.notes = this._notes.all();
             editor.note = undefined;
         });
         list.addEventListener('change', (e) => {
-            this._notes.update(e.detail.note.id, e.detail.note.text);
+            this._notes.update(e.detail.note.id, e.detail.note.body);
             list.notes = this._notes.all();
         });
         list.addEventListener('delete', (e) => {

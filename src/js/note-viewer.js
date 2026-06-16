@@ -23,7 +23,7 @@ class NoteViewer extends TemplatedElement {
 
     _render() {
         if (!this._connected) { return;}
-        this.querySelector('.content').textContent = this._note?.text || '';
+        this.querySelector('.content').textContent = this._note?.body || '';
     }
 };
 

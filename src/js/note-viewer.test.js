@@ -25,7 +25,7 @@ test('note-viewer', (t) => {
 
         t.test('Set note before render', (t) => {
             const viewer = document.createElement('note-viewer');
-            viewer.note = { text: 'Hello World' };
+            viewer.note = { body: 'Hello World' };
             document.body.appendChild(viewer);
             assert.equal(viewer.textContent, 'Hello World');
         });
@@ -34,16 +34,16 @@ test('note-viewer', (t) => {
             const viewer = document.createElement('note-viewer');
             document.body.appendChild(viewer);
             assert.equal(viewer.textContent, '');
-            viewer.note = { text: 'Hello World' };
+            viewer.note = { body: 'Hello World' };
             assert.equal(viewer.textContent, 'Hello World');
         });
 
         t.test('Update note after render', (t) => {
             const viewer = document.createElement('note-viewer');
-            viewer.note = { text: 'Hello World' };
+            viewer.note = { body: 'Hello World' };
             document.body.appendChild(viewer);
             assert.equal(viewer.textContent, 'Hello World');
-            viewer.note = { text: 'Hello World, edited' };
+            viewer.note = { body: 'Hello World, edited' };
             assert.equal(viewer.textContent, 'Hello World, edited');
         });
 

@@ -22,7 +22,7 @@ test('notes-collection', (t) => {
         assert.equal(Array.from(collection.all()).length, 0);
         const note = collection.add('Hello World');
         collection.update(note.id, 'Hello World, edited');
-        assert.equal(collection.get(note.id).text, 'Hello World, edited');
+        assert.equal(collection.get(note.id).body, 'Hello World, edited');
     });
 
     t.test('Delete note', (t) => {

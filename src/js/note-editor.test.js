@@ -25,7 +25,7 @@ test('note-editor', (t) => {
 
         t.test('Set note before render', (t) => {
             const editor = document.createElement('note-editor');
-            editor.note = { text: 'Hello World' };
+            editor.note = { body: 'Hello World' };
             document.body.appendChild(editor);
             assert.equal(editor.querySelector('textarea')?.value, 'Hello World');
         });
@@ -34,16 +34,16 @@ test('note-editor', (t) => {
             const editor = document.createElement('note-editor');
             document.body.appendChild(editor);
             assert.equal(editor.querySelector('textarea')?.value, '');
-            editor.note = { text: 'Hello World' };
+            editor.note = { body: 'Hello World' };
             assert.equal(editor.querySelector('textarea')?.value, 'Hello World');
         });
 
         t.test('Update note after render', (t) => {
             const editor = document.createElement('note-editor');
-            editor.note = { text: 'Hello World' };
+            editor.note = { body: 'Hello World' };
             document.body.appendChild(editor);
             assert.equal(editor.querySelector('textarea')?.value, 'Hello World');
-            editor.note = { text: 'Hello World, edited' };
+            editor.note = { body: 'Hello World, edited' };
             assert.equal(editor.querySelector('textarea')?.value, 'Hello World, edited');
         });
 
@@ -58,7 +58,7 @@ test('note-editor', (t) => {
             editor.addEventListener('change', (e) => { note = e.detail.note;})
             editor.querySelector('textarea').value = 'Hello World!';
             editor.querySelector('button').click();
-            assert.deepEqual(note, { text: 'Hello World!' });
+            assert.deepEqual(note, { body: 'Hello World!' });
         });
 
     });

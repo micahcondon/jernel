@@ -8,9 +8,9 @@ export default class NotesCollection {
     return this._notes.values();
   }
 
-  add(text) {
+  add(body) {
     const id = this._buildId();
-    const note = { id, text };
+    const note = { id, body };
     this._notes.set(id, note);
     return note;
   }
@@ -19,8 +19,8 @@ export default class NotesCollection {
     return this._notes.get(id);
   }
 
-  update(id, text) {
-    this._notes.set(id, { id, text });
+  update(id, body) {
+    this._notes.set(id, { id, body });
   }
 
   delete(id) {
