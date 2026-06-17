@@ -30,7 +30,7 @@ export default class NotesCollection {
     const note = { id, body };
     this._notes.set(id, note);
     this._emitter.emit(ADD, note);
-    this._emitter.emit(ALL, this.all());
+    this._emitAll();
     return note;
   }
 
@@ -44,14 +44,20 @@ export default class NotesCollection {
     }
     this._notes.set(id, {...this.get(id), body });
     this._emitter.emit(UPDATE, this.get(id));
-    this._emitter.emit(ALL, this.all());
+    this._emitAll();
   }
 
   delete(id) {
     const note = this.get(id) || { id };
     this._notes.delete(id);
     this._emitter.emit(DELETE, note);
-    this._emitter.emit(ALL, this.all());
+    this._emitAll();
+  }
+
+  _emitAll() {
+    // explicitly using an array here,
+    // so we don't share a single iterator across multiple callbacks
+    this._emitter.emit(ALL, Array.from(this.all()));
   }
 
   _buildId() {

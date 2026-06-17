@@ -2,12 +2,18 @@
 
 This is not a highly detailed master plan, just a few rough notes on the next few known steps
 
-blog about previous release
+# Writing
+- blog about previous releases - collection, emitters
+- blog about bug with emitting an iterable, verifying with tests - should have committed
 
 # Context Provider
 - add context provider
   - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
-- demonstrate change propagation
+  - demonstrate change propagation
+    - use lightweight wrappers, so the leaf nodes don't have to change
+`<from-context></from-context>`
+    - editable-note subscribes to update and to delete (unsubscribe on delete)
+    - list subscribes to add
 
 # Basic Persistence
 - add persistence - markdown + yaml, simple indexeddb or localhost

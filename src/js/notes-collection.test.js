@@ -75,5 +75,25 @@ test('notes-collection', (t) => {
             assert.deepEqual(deletedNote, note);
             assert.deepEqual(allNotes, []);
         });
+
+        t.test('ALL handles multiple subscribers', (t) => {
+            const counters = { a: 0, b: 0 }
+            collection.on(ALL, (notes) => {
+                let length = 0;
+                notes.forEach(() => length++);
+                counters.a = length;
+            });
+            collection.on(ALL, (notes) => {
+                let length = 0;
+                notes.forEach(() => length++);
+                counters.b = length;
+            });
+            collection.add('Hello World');
+            collection.add('Hello World 2');
+            collection.add('Hello World 3');
+            collection.add('Hello World 4');
+            assert.equal(counters.a, 4);
+            assert.equal(counters.b, 4);
+        });
     })
 });
