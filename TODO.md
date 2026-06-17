@@ -2,6 +2,8 @@
 
 This is not a highly detailed master plan, just a few rough notes on the next few known steps
 
+blog about previous release
+
 # Context Provider
 - add context provider
   - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
