@@ -6,12 +6,23 @@ This is not a highly detailed master plan, just a few rough notes on the next fe
 - blog about previous releases - collection, emitters
 - blog about bug with emitting an iterable, verifying with tests - should have committed
 
+# Collection Emitter
+- get rid of ALL, it causes unnecessary iterating
+- emit and test: noteid and update:noteid and delete:noteid
+- emitter and collection emitter should support once
+- dispatch update:noteId with undefined = deleted
+
 # Context Provider
 - add context provider
+  - with tests
+  - comply with the specs - event type and detail, subscribe or not, etc
   - https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md
   - demonstrate change propagation
-    - use lightweight wrappers, so the leaf nodes don't have to change
-`<from-context></from-context>`
+    - use lightweight wrappers, so the leaf nodes don't have to change?
+      - with tests
+      - `<from-context type='note' once='get:2222' on='update:2222' autoremove></from-context>`
+      - `<from-context type='note' on='add'></from-context>`
+      - display: contents
     - editable-note subscribes to update and to delete (unsubscribe on delete)
     - list subscribes to add
 
